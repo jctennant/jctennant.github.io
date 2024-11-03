@@ -18,21 +18,64 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+# _config.yml
+title: Jake Tennant
+#email: your.email@example.com
+description: >- 
+  Your personal website and blog. Write a great description here!
+baseurl: ""
+url: "https://jctennant.github.io"
+github_username: jctennant
+linkedin_username: jaketennant
 
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+
+# Navigation
+header_pages:
+  - about.md
+  - blog.md
+  - projects.md
+
+# Site settings
+author:
+  name: Jake Tennant
+  bio: Placeholder bia
+  location: Berkeley, CA
+
+# Add to _layouts/home.html
+---
+layout: default
+---
+
+<div class="home">
+  <section class="intro">
+    <h1>Hi, I'm {{ site.author.name }}</h1>
+    <p>{{ site.author.bio }}</p>
+  </section>
+
+  <section class="posts">
+    <h2>Latest Posts</h2>
+    {%- if site.posts.size > 0 -%}
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+      <li>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        {{ post.excerpt }}
+      </li>
+      {%- endfor -%}
+    </ul>
+    {%- endif -%}
+  </section>
+</div>
 
 # Exclude from processing.
 # The following items will not be processed, by default.
